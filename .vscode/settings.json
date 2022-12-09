@@ -1,0 +1,17 @@
+{
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "html",
+    "typescriptreact",
+    "typescript"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.formatOnSave": true,
+  "beautify.options": {
+    "indent_size": 4,
+    "indent_level": 2
+  }
+}
