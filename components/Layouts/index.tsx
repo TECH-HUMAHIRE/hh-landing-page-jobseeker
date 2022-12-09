@@ -8,7 +8,7 @@ type ILayout = {
   children: ReactNode;
 };
 
-const Layout: FC<ILayout> = ({ children }: ILayout) => {
+const Layout: React.FC<ILayout> = ({ children }: ILayout) => {
   return (
     <div className="block w-100">
       <Head>
