@@ -80,7 +80,7 @@ export default function Home() {
                         faqNumber === 1
                           ? 'h-auto opacity-100 '
                           : 'opacity-0 h-0 '
-                      } h-0 transition-all duration-300  ease-in-out`}
+                      } transition-all duration-300  ease-in-out`}
                     >
                       <p className="text-[14px] px-[25px] pb-[15px]">
                         Lorem ipsum dolor, sit amet consectetur adipisicing
@@ -108,7 +108,7 @@ export default function Home() {
                         faqNumber === 2
                           ? 'h-auto opacity-100 '
                           : 'opacity-0 h-0 '
-                      } h-0 transition-all duration-300  ease-in-out`}
+                      } transition-all duration-300  ease-in-out`}
                     >
                       <p className="text-[14px] px-[25px] pb-[15px]">
                         Lorem ipsum dolor, sit amet consectetur adipisicing
@@ -140,7 +140,7 @@ export default function Home() {
                         faqNumber === 3
                           ? 'h-auto opacity-100 '
                           : 'opacity-0 h-0 '
-                      } h-0 transition-all duration-300  ease-in-out`}
+                      } transition-all duration-300  ease-in-out`}
                     >
                       <p className="text-[14px] px-[25px] pb-[15px]">
                         Lorem ipsum dolor, sit amet consectetur adipisicing
@@ -168,7 +168,7 @@ export default function Home() {
                         faqNumber === 4
                           ? 'h-auto opacity-100 '
                           : 'opacity-0 h-0 '
-                      } h-0 transition-all duration-300  ease-in-out`}
+                      } transition-all duration-300  ease-in-out`}
                     >
                       <p className="text-[14px] px-[25px] pb-[15px]">
                         Lorem ipsum dolor, sit amet consectetur adipisicing
@@ -196,7 +196,7 @@ export default function Home() {
                         faqNumber === 5
                           ? 'h-auto opacity-100 '
                           : 'opacity-0 h-0 '
-                      } h-0 transition-all duration-300  ease-in-out`}
+                      } transition-all duration-300  ease-in-out`}
                     >
                       <p className="text-[14px] px-[25px] pb-[15px]">
                         Lorem ipsum dolor, sit amet consectetur adipisicing
