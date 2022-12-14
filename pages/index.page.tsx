@@ -1,20 +1,17 @@
 import Layout from '@components/Layouts';
-import Image from 'next/image';
 import { useState } from 'react';
 import HomeSectionWork from './home/HomeSectionWork';
 import OvalRed from '@public/icons/oval-red.svg';
 import OvalYellow from '@public/icons/oval-yellow.svg';
 import ArrowBottom from '@public/icons/arrow-bottom.svg';
+import Link from 'next/link';
 
 export default function Home() {
   const [faqNumber, setFaqNumber] = useState<number>(0);
   const onSetFAQ = (currentNumber: number): void => {
-    console.log(
-      currentNumber === faqNumber ? 0 : currentNumber,
-      'currentNumber === faqNumber ? 0 : currentNumber',
-    );
     setFaqNumber(currentNumber === faqNumber ? 0 : currentNumber);
   };
+
   return (
     <Layout>
       <section className="h-screen container pt-[120px]">
@@ -33,12 +30,24 @@ export default function Home() {
               </p>
             </div>
             <div className="flex flex-row mt-[40px]">
-              <button className="mr-[20px] bg-white border border-primary font-bold text-[14px] text-primary rounded-[8px] w-[180px] h-[40px]">
+              <Link
+                href={{
+                  pathname: '/',
+                  query: { page: 'sign-in' },
+                }}
+                className="mr-[20px] inline-flex items-center justify-center bg-white border border-primary font-bold text-[14px] text-primary rounded-[8px] w-[180px] h-[40px]"
+              >
                 Sign In
-              </button>
-              <button className=" text-white font-bold text-[14px] bg-primary rounded-[8px] w-[180px] h-[40px]">
-                Register Now
-              </button>
+              </Link>
+              <Link
+                href={{
+                  pathname: '/',
+                  query: { page: 'register' },
+                }}
+                className="text-center inline-flex items-center justify-center text-white font-bold text-[14px] bg-primary rounded-[8px] w-[180px] h-[40px]"
+              >
+                Sign Up
+              </Link>
             </div>
           </div>
           <div className="w-[45%] inline-flex">
@@ -233,9 +242,16 @@ export default function Home() {
               <div className="absolute left-[-20px] top-[-20px]">
                 <span className="w-[40px] h-[40px] rounded-full bg-red inline-flex"></span>
               </div>
-              <button className="text-primary font-bold text-[14px] bg-white rounded-[8px] w-[290px] h-[64px] relative">
+
+              <Link
+                href={{
+                  pathname: '/',
+                  query: { page: 'register' },
+                }}
+                className="inline-flex items-center justify-center text-primary font-bold text-[14px] bg-white rounded-[8px] w-[290px] h-[64px] relative"
+              >
                 Register Now
-              </button>
+              </Link>
             </div>
           </div>
         </div>

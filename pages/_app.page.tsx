@@ -3,6 +3,9 @@ import type { AppProps } from 'next/app';
 import 'tailwindcss/base.css';
 import 'tailwindcss/utilities.css';
 import 'tailwindcss/components.css';
+import { Flowbite } from 'flowbite-react';
+// import { FC, PropsWithChildren } from 'react';
+import { flowbiteTheme as theme } from '../utils/themes';
 
 import { Poppins } from '@next/font/google';
 
@@ -15,7 +18,9 @@ const poppins = Poppins({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <main className={`${poppins.variable} font-sans`}>
-      <Component {...pageProps} />
+      <Flowbite theme={{ theme }}>
+        <Component {...pageProps} />
+      </Flowbite>
     </main>
   );
 }
