@@ -1,13 +1,16 @@
 import Layout from '@components/Layouts';
+import { Modal } from 'flowbite-react/lib/esm/components/Modal';
 import Image from 'next/image';
 import { useState } from 'react';
 import HomeSectionWork from './home/HomeSectionWork';
 import OvalRed from '@public/icons/oval-red.svg';
 import OvalYellow from '@public/icons/oval-yellow.svg';
 import ArrowBottom from '@public/icons/arrow-bottom.svg';
+// import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
 
 export default function Home() {
   const [faqNumber, setFaqNumber] = useState<number>(0);
+  // const [isModal, setShowModal] = useState<boolean>(false);
   const onSetFAQ = (currentNumber: number): void => {
     console.log(
       currentNumber === faqNumber ? 0 : currentNumber,
@@ -15,8 +18,17 @@ export default function Home() {
     );
     setFaqNumber(currentNumber === faqNumber ? 0 : currentNumber);
   };
+  // const onClick = () => {
+  //   setShowModal(true);
+  // };
+  // const onClose = () => {
+  //   setShowModal(false);
+  // };
   return (
     <Layout>
+      {/* <>
+        <Button onClick={onClick}>Toggle modal</Button>
+      </> */}
       <section className="h-screen container pt-[120px]">
         <div className="w-100 flex flex-row">
           <div className="w-[55%] inline-flex flex-col">
