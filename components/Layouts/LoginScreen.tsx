@@ -1,16 +1,92 @@
 import { ReactNode } from 'react';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import axios from 'axios';
+import * as yup from 'yup';
 import { Button, Label, TextInput, Modal } from 'flowbite-react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { auth, signInWithEmailAndPassword } from '../../lib/firebase/firebase';
 
 type IHeader = {
   children?: ReactNode;
 };
 
+type Inputs = {
+  email: string;
+  password: string;
+};
+
+const schema = yup
+  .object({
+    email: yup
+      .string()
+      .email('Invalid email format')
+      .required('Email is required!'),
+    password: yup
+      .string()
+      .min(6, 'Minimum of 6 characters')
+      .required('Password is required!'),
+  })
+  .required();
+
 const LoginScreen: React.FC<IHeader> = () => {
+  const {
+    register,
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm<Inputs>({
+    resolver: yupResolver(schema),
+  });
   const router = useRouter();
   const onClose = () => {
     router.push('/');
+  };
+
+  const onPostData: any = async (email: string, password: string) => {
+    return axios({
+      method: 'post',
+      url: '/auth/login',
+      data: {
+        email: email,
+        password: password,
+      },
+      baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+    })
+      .then(function ({ data, status }) {
+        if (status === 200) {
+          console.log(data?.data, 'data');
+          window.location.href = 'https://hh-employer-fe.vercel.app/';
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  const onSubmitForm: SubmitHandler<Inputs> = async (data) => {
+    const { password, email } = data;
+    await signInWithEmailAndPassword(auth, email, password)
+      .then(async () => {
+        await onPostData(email, password);
+      })
+      .catch((error) => {
+        let messageError = '';
+        switch (error.code) {
+          case 'auth/wrong-password':
+            messageError = `Password you entered doesn't match our records. Please double-check and try again`;
+            break;
+          case 'auth/user-not-found':
+            messageError = `The email you entered doesn't match our records. Please double-check and try again`;
+            break;
+          default:
+            messageError =
+              'Oops! Something went wrong, please try again later.';
+        }
+        console.log(messageError);
+      });
   };
   return (
     <Modal
@@ -21,22 +97,41 @@ const LoginScreen: React.FC<IHeader> = () => {
     >
       <Modal.Header>Login as an Employer</Modal.Header>
       <Modal.Body>
-        <div className="w-full">
+        <form onSubmit={handleSubmit(onSubmitForm)} className="w-full">
           <div className="block mb-[24px]">
             <div className="mb-2 block">
-              <Label htmlFor="email" value="Email" />
+              <Label htmlFor="email" value="Your Email" />
             </div>
             <TextInput
+              {...register('email')}
               id="email"
-              placeholder="name@company.com"
-              required={true}
+              placeholder="xxx@humaihire.com"
+              helperText={
+                errors?.email?.message && (
+                  <span className="text-[10px] text-error-message">
+                    {errors?.email?.message}
+                  </span>
+                )
+              }
             />
           </div>
           <div className="block mb-[24px]">
             <div className="mb-2 block">
-              <Label htmlFor="password" value="Password" />
+              <Label htmlFor="password" value="Your Password" />
             </div>
-            <TextInput id="password" type="password" required={true} />
+            <TextInput
+              {...register('password')}
+              id="password"
+              type="password"
+              placeholder="password"
+              helperText={
+                errors?.password?.message && (
+                  <span className="text-[10px] text-error-message">
+                    {errors?.password?.message}
+                  </span>
+                )
+              }
+            />
           </div>
           <div className="flex justify-between">
             <div className="flex items-center justify-end w-full  pb-[40px]">
@@ -52,7 +147,9 @@ const LoginScreen: React.FC<IHeader> = () => {
             </div>
           </div>
           <div className="w-full flex flex-col">
-            <Button color="primary">Submit</Button>
+            <Button type="submit" color="primary">
+              Submit
+            </Button>
           </div>
           <div className="w-full text-center block pt-[20px]">
             <span className="text-grey font-normal text-[14px] pr-[5px]">
@@ -69,7 +166,7 @@ const LoginScreen: React.FC<IHeader> = () => {
               Sign Up
             </Link>
           </div>
-        </div>
+        </form>
       </Modal.Body>
     </Modal>
   );

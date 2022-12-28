@@ -30,6 +30,7 @@ module.exports = {
       primary: '#20C1AA',
       secondary: '#F57F17',
       red: '#F44336',
+      'error-message': '#F44336',
       'secondary-light': '#FDDFC5',
       'light-orange': '#FFF9F3',
       'light-white': '#FAFAFA',
