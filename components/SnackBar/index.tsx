@@ -22,8 +22,6 @@ const SnackBar = (props: ISnackBar): any => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active]);
 
-  console.log(snackBarType[status]?.bg, 'snackBarType');
-  console.log(status, 'snackBarType');
   return (
     <div
       className={`${
