@@ -6,6 +6,11 @@ export const flowbiteTheme: CustomFlowbiteTheme = {
       primary: 'bg-primary text-white',
     },
   },
+  spinner: {
+    color: {
+      success: 'fill-[#20C1AA]',
+    },
+  },
   modal: {
     header: {
       base: 'flex flex-row justify-between w-full p-5',

@@ -1,9 +1,12 @@
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import axios from 'axios';
 import * as yup from 'yup';
-import { Button, Label, TextInput, Modal } from 'flowbite-react';
+import { Button, Label, TextInput, Modal, Spinner } from 'flowbite-react';
+import Loading from '../Loading';
+import SnackBar from '../SnackBar';
+import type { ISnackBarObj } from '../SnackBar';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { auth, signInWithEmailAndPassword } from '../../lib/firebase/firebase';
@@ -34,13 +37,17 @@ const LoginScreen: React.FC<IHeader> = () => {
   const {
     register,
     handleSubmit,
-    control,
-    reset,
     formState: { errors },
   } = useForm<Inputs>({
     resolver: yupResolver(schema),
   });
   const router = useRouter();
+  const [isLoading, setLoading] = useState<boolean>(false);
+  const [snackBarData, setSnackBar] = useState<ISnackBarObj>({
+    active: false,
+    status: '',
+    message: '',
+  });
   const onClose = () => {
     router.push('/');
   };
@@ -55,19 +62,33 @@ const LoginScreen: React.FC<IHeader> = () => {
       },
       baseURL: process.env.NEXT_PUBLIC_BASE_URL,
     })
-      .then(function ({ data, status }) {
+      .then(({ data, status }) => {
         if (status === 200) {
-          console.log(data?.data, 'data');
-          window.location.href = 'https://hh-employer-fe.vercel.app/';
+          if (data?.data?.token) {
+            setSnackBar({
+              status: 'SUCCESS',
+              message: 'SUCCESS LOGIN GO TO DASHBOARD',
+              active: true,
+            });
+            localStorage.setItem('token', data?.data?.token);
+            window.location.href = `${process.env.NEXT_PUBLIC_DASHBOARD_URL}/redirect?token=${data?.data?.token}`;
+          }
         }
       })
-      .catch(function (error) {
-        console.log(error);
+      .catch(() => {
+        setSnackBar({
+          status: 'ERROR',
+          message: 'ERROR WHEN LOGIN TO DASHBOARD',
+          active: true,
+        });
       });
   };
 
+  const onResetSnackBar = (values: ISnackBarObj): void => setSnackBar(values);
+
   const onSubmitForm: SubmitHandler<Inputs> = async (data) => {
     const { password, email } = data;
+    setLoading(true);
     await signInWithEmailAndPassword(auth, email, password)
       .then(async () => {
         await onPostData(email, password);
@@ -85,90 +106,108 @@ const LoginScreen: React.FC<IHeader> = () => {
             messageError =
               'Oops! Something went wrong, please try again later.';
         }
-        console.log(messageError);
+        setSnackBar({
+          status: 'ERROR',
+          message: messageError.toUpperCase(),
+          active: true,
+        });
       });
+    setLoading(false);
   };
   return (
-    <Modal
-      show={router?.query?.page === 'sign-in'}
-      size="xl"
-      popup={true}
-      onClose={onClose}
-    >
-      <Modal.Header>Login as an Employer</Modal.Header>
-      <Modal.Body>
-        <form onSubmit={handleSubmit(onSubmitForm)} className="w-full">
-          <div className="block mb-[24px]">
-            <div className="mb-2 block">
-              <Label htmlFor="email" value="Your Email" />
+    <>
+      <Loading status={isLoading}></Loading>
+      <SnackBar {...snackBarData} onReset={onResetSnackBar}></SnackBar>
+      <Modal
+        show={router?.query?.page === 'sign-in'}
+        size="xl"
+        popup={true}
+        onClose={onClose}
+      >
+        <Modal.Header>Login as an Employer</Modal.Header>
+        <Modal.Body>
+          <form onSubmit={handleSubmit(onSubmitForm)} className="w-full">
+            <div className="block mb-[24px]">
+              <div className="mb-2 block">
+                <Label htmlFor="email" value="Your Email" />
+              </div>
+              <TextInput
+                {...register('email')}
+                id="email"
+                placeholder="xxx@humaihire.com"
+                helperText={
+                  errors?.email?.message && (
+                    <span className="text-[10px] text-error-message">
+                      {errors?.email?.message}
+                    </span>
+                  )
+                }
+              />
             </div>
-            <TextInput
-              {...register('email')}
-              id="email"
-              placeholder="xxx@humaihire.com"
-              helperText={
-                errors?.email?.message && (
-                  <span className="text-[10px] text-error-message">
-                    {errors?.email?.message}
-                  </span>
-                )
-              }
-            />
-          </div>
-          <div className="block mb-[24px]">
-            <div className="mb-2 block">
-              <Label htmlFor="password" value="Your Password" />
+            <div className="block mb-[24px]">
+              <div className="mb-2 block">
+                <Label htmlFor="password" value="Your Password" />
+              </div>
+              <TextInput
+                {...register('password')}
+                id="password"
+                type="password"
+                placeholder="password"
+                helperText={
+                  errors?.password?.message && (
+                    <span className="text-[10px] text-error-message">
+                      {errors?.password?.message}
+                    </span>
+                  )
+                }
+              />
             </div>
-            <TextInput
-              {...register('password')}
-              id="password"
-              type="password"
-              placeholder="password"
-              helperText={
-                errors?.password?.message && (
-                  <span className="text-[10px] text-error-message">
-                    {errors?.password?.message}
-                  </span>
-                )
-              }
-            />
-          </div>
-          <div className="flex justify-between">
-            <div className="flex items-center justify-end w-full  pb-[40px]">
+            <div className="flex justify-between">
+              <div className="flex items-center justify-end w-full  pb-[40px]">
+                <Link
+                  href={{
+                    pathname: '/',
+                    query: { page: 'register' },
+                  }}
+                  className="text-primary inline-flex text-bold text-[16px]"
+                >
+                  Forget password?
+                </Link>
+              </div>
+            </div>
+            <div className="w-full flex flex-col">
+              <Button type="submit" color="primary">
+                {isLoading ? (
+                  <>
+                    <div className="fill-primary mr-3">
+                      <Spinner size="sm" color="success" />
+                    </div>
+                    Loading ...
+                  </>
+                ) : (
+                  'Submit'
+                )}
+              </Button>
+            </div>
+            <div className="w-full text-center block pt-[20px]">
+              <span className="text-grey font-normal text-[14px] pr-[5px]">
+                Don’t have account yet?
+              </span>
+
               <Link
                 href={{
                   pathname: '/',
                   query: { page: 'register' },
                 }}
-                className="text-primary inline-flex text-bold text-[16px]"
+                className="text-primary text-[16px] font-bold"
               >
-                Forget password?
+                Sign Up
               </Link>
             </div>
-          </div>
-          <div className="w-full flex flex-col">
-            <Button type="submit" color="primary">
-              Submit
-            </Button>
-          </div>
-          <div className="w-full text-center block pt-[20px]">
-            <span className="text-grey font-normal text-[14px] pr-[5px]">
-              Don’t have account yet?
-            </span>
-
-            <Link
-              href={{
-                pathname: '/',
-                query: { page: 'register' },
-              }}
-              className="text-primary text-[16px] font-bold"
-            >
-              Sign Up
-            </Link>
-          </div>
-        </form>
-      </Modal.Body>
-    </Modal>
+          </form>
+        </Modal.Body>
+      </Modal>
+    </>
   );
 };
 
