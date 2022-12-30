@@ -71,7 +71,7 @@ const LoginScreen: React.FC<IHeader> = () => {
               active: true,
             });
             localStorage.setItem('token', data?.data?.token);
-            window.location.href = `${process.env.NEXT_PUBLIC_DASHBOARD_URL}/redirect?token=${data?.data?.token}`;
+            window.location.href = `${process.env.NEXT_PUBLIC_DASHBOARD_URL}/redirect?token=${data?.data?.token}&isVerify${data?.data?.email_verified}&uid=${data?.data?.email_verified}`;
           }
         }
       })
