@@ -85,6 +85,7 @@ const RegisterScreen: React.FC<IHeader> = () => {
   const onResetSnackBar = (values: ISnackBarObj): void => setSnackBar(values);
 
   const onPostData: any = async (response: RegisterBody) => {
+    console.log(response, 'response');
     return axios({
       method: 'post',
       url: '/auth/register',
@@ -99,8 +100,8 @@ const RegisterScreen: React.FC<IHeader> = () => {
               message: 'SUCCESS REGISTER GO TO DASHBOARD',
               active: true,
             });
-            localStorage.setItem('token', data?.data?.token);
-            window.location.href = `${process.env.NEXT_PUBLIC_DASHBOARD_URL}/redirect?token=${data?.data?.token}`;
+            // localStorage.setItem('token', data?.data?.token);
+            // window.location.href = `${process.env.NEXT_PUBLIC_DASHBOARD_URL}/redirect?token=${data?.data?.token}`;
           }
         }
       })
@@ -123,15 +124,13 @@ const RegisterScreen: React.FC<IHeader> = () => {
           updateProfile(user, {
             displayName: name,
           }).then(async () => {
-            console.log(user);
-            console.log(user.uid);
-            // await onPostData({
-            //   uid: user.uid,
-            //   name: name,
-            //   email: email,
-            //   password: email,
-            //   user_type: 'EMPLOYER',
-            // });
+            await onPostData({
+              uid: user.uid,
+              name: name,
+              email: email,
+              password: email,
+              user_type: 'EMPLOYER',
+            });
           });
         })
         .catch((error) => {
