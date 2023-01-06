@@ -128,7 +128,7 @@ const RegisterScreen: React.FC<IHeader> = () => {
               name: name,
               email: email,
               password: email,
-              user_type: process.env.NEXT_PUBLIC_TYPE,
+              user_type: 'EMPLOYER',
             });
           });
         })
