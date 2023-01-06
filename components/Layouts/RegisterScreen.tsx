@@ -100,6 +100,7 @@ const RegisterScreen: React.FC<IHeader> = () => {
               message: 'SUCCESS REGISTER GO TO DASHBOARD',
               active: true,
             });
+            router.push('/?page=sign-in');
             // localStorage.setItem('token', data?.data?.token);
             // window.location.href = `${process.env.NEXT_PUBLIC_DASHBOARD_URL}/redirect?token=${data?.data?.token}`;
           }
