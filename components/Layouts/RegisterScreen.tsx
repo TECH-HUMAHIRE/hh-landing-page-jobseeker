@@ -123,13 +123,15 @@ const RegisterScreen: React.FC<IHeader> = () => {
           updateProfile(user, {
             displayName: name,
           }).then(async () => {
-            await onPostData({
-              uid: user.uid,
-              name: name,
-              email: email,
-              password: email,
-              user_type: 'EMPLOYER',
-            });
+            console.log(user);
+            console.log(user.uid);
+            // await onPostData({
+            //   uid: user.uid,
+            //   name: name,
+            //   email: email,
+            //   password: email,
+            //   user_type: 'EMPLOYER',
+            // });
           });
         })
         .catch((error) => {
