@@ -129,7 +129,7 @@ const RegisterScreen: React.FC<IHeader> = () => {
               uid: user.uid,
               name: name,
               email: email,
-              password: email,
+              password: password,
               user_type: 'EMPLOYER',
             });
           });
