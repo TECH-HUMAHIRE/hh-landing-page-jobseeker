@@ -1,12 +1,19 @@
 import Head from 'next/head';
 import Header from './Header';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 
 type ILayout = {
   children: ReactNode;
 };
 
 const Layout: React.FC<ILayout> = ({ children }: ILayout) => {
+  useEffect(() => {
+    if (localStorage.getItem('color-theme') === 'dark') {
+      document.documentElement.classList.add('light');
+    }
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    return () => {};
+  }, []);
   return (
     <div className="block w-100">
       <Head>
