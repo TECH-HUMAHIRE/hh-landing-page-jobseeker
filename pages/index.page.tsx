@@ -1,11 +1,15 @@
 import Layout from '@components/Layouts';
 import { useState, useEffect } from 'react';
 import HomeSectionWork from './home/HomeSectionWork';
+import HomeSectionTestimonial from './home/HomeSectionTestimonial';
 import OvalRed from '@public/icons/oval-red.svg';
 import OvalYellow from '@public/icons/oval-yellow.svg';
 import ArrowBottom from '@public/icons/arrow-bottom.svg';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import HomeSectionService from './home/HomeSectionService';
+import HomeSectionFaq from './home/HomeSectionFaq';
+import HomeSectionQuestions from './home/HomeSectionQuestions';
 
 export default function Home() {
   const router = useRouter();
@@ -87,170 +91,8 @@ export default function Home() {
         </div>
       </section>
       <HomeSectionWork></HomeSectionWork>
-      <section className="py-[156px] container bg-white relative">
-        <div className="flex items-center flex-col mb-[20px]">
-          <h1 className="block text-center font-bold text-[64px] text-black mb-[20px]">
-            FAQ
-          </h1>
-          <p className="block text-center font-normal text-[16px] text-dark-grey w-[70%] pl-[40px] pr-[40px] ">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit quis
-            sollicitudin eu blandit diam. Ultrices nulla ut ullamcorper euismod
-            tortor. Ornare in at phasellus ut suspendisse.
-          </p>
-        </div>
-        <div className="flex items-center flex-col">
-          <div className="flex w-[70%]">
-            <div className="w-full bg-white rounded-[16px] border border-light-grey">
-              <ul className="flex flex-col px-[12px] w-full">
-                <li>
-                  <div className="border-b border-light-grey">
-                    <button
-                      onClick={() => onSetFAQ(1)}
-                      className="w-full p-[25px] relative z-10 cursor-pointer font-semibold block text-[14px] text-black flex flex-row justify-between items-center"
-                    >
-                      <span>How to post a job in Humahire</span>
-                      <div className="inline-flex">
-                        <ArrowBottom></ArrowBottom>
-                      </div>
-                    </button>
-                    <div
-                      className={`${
-                        faqNumber === 1
-                          ? 'h-auto opacity-100 '
-                          : 'opacity-0 h-0 '
-                      } transition-all duration-300  ease-in-out`}
-                    >
-                      <p className="text-[14px] px-[25px] pb-[15px]">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing
-                        elit. Molestias expedita dolor iure cum rem nobis
-                        reprehenderit blanditiis omnis odit fugit, modi
-                        repudiandae consequatur soluta. Iste perspiciatis harum
-                        quasi unde tempore.
-                      </p>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div className=" border-b border-light-grey">
-                    <button
-                      onClick={() => onSetFAQ(2)}
-                      className="w-full p-[25px] relative z-10 cursor-pointer font-semibold block text-[14px] text-black flex flex-row justify-between items-center"
-                    >
-                      <span>How to get candidates from the job created</span>
-                      <div className="inline-flex">
-                        <ArrowBottom></ArrowBottom>
-                      </div>
-                    </button>
-                    <div
-                      className={`${
-                        faqNumber === 2
-                          ? 'h-auto opacity-100 '
-                          : 'opacity-0 h-0 '
-                      } transition-all duration-300  ease-in-out`}
-                    >
-                      <p className="text-[14px] px-[25px] pb-[15px]">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing
-                        elit. Molestias expedita dolor iure cum rem nobis
-                        reprehenderit blanditiis omnis odit fugit, modi
-                        repudiandae consequatur soluta. Iste perspiciatis harum
-                        quasi unde tempore.
-                      </p>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div className=" border-b border-light-grey">
-                    <button
-                      type="button"
-                      onClick={() => onSetFAQ(3)}
-                      className="w-full p-[25px] relative z-10 cursor-pointer font-semibold block text-[14px] text-black flex flex-row justify-between items-center"
-                    >
-                      <span>
-                        How to unlock candidates that have been referred by
-                        Recruiter
-                      </span>
-                      <span className="inline-flex">
-                        <ArrowBottom></ArrowBottom>
-                      </span>
-                    </button>
-                    <div
-                      className={`${
-                        faqNumber === 3
-                          ? 'h-auto opacity-100 '
-                          : 'opacity-0 h-0 '
-                      } transition-all duration-300  ease-in-out`}
-                    >
-                      <p className="text-[14px] px-[25px] pb-[15px]">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing
-                        elit. Molestias expedita dolor iure cum rem nobis
-                        reprehenderit blanditiis omnis odit fugit, modi
-                        repudiandae consequatur soluta. Iste perspiciatis harum
-                        quasi unde tempore.
-                      </p>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div className="border-b border-light-grey">
-                    <button
-                      onClick={() => onSetFAQ(4)}
-                      className="w-full p-[25px] relative z-10 cursor-pointer font-semibold block text-[14px] text-black flex flex-row justify-between items-center"
-                    >
-                      <span>What should we do after unlock candidates</span>
-                      <div className="inline-flex">
-                        <ArrowBottom></ArrowBottom>
-                      </div>
-                    </button>
-                    <div
-                      className={`${
-                        faqNumber === 4
-                          ? 'h-auto opacity-100 '
-                          : 'opacity-0 h-0 '
-                      } transition-all duration-300  ease-in-out`}
-                    >
-                      <p className="text-[14px] px-[25px] pb-[15px]">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing
-                        elit. Molestias expedita dolor iure cum rem nobis
-                        reprehenderit blanditiis omnis odit fugit, modi
-                        repudiandae consequatur soluta. Iste perspiciatis harum
-                        quasi unde tempore.
-                      </p>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div className="border-0 border-light-grey">
-                    <button
-                      onClick={() => onSetFAQ(5)}
-                      className="w-full p-[25px] relative z-10 cursor-pointer font-semibold block text-[14px] text-black flex flex-row justify-between items-center"
-                    >
-                      <span> How to hire the shortlisted candidates</span>
-                      <div className="inline-flex">
-                        <ArrowBottom></ArrowBottom>
-                      </div>
-                    </button>
-                    <div
-                      className={`${
-                        faqNumber === 5
-                          ? 'h-auto opacity-100 '
-                          : 'opacity-0 h-0 '
-                      } transition-all duration-300  ease-in-out`}
-                    >
-                      <p className="text-[14px] px-[25px] pb-[15px]">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing
-                        elit. Molestias expedita dolor iure cum rem nobis
-                        reprehenderit blanditiis omnis odit fugit, modi
-                        repudiandae consequatur soluta. Iste perspiciatis harum
-                        quasi unde tempore.
-                      </p>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HomeSectionTestimonial></HomeSectionTestimonial>
+
       <section className="relative w-100 bg-primary pt-[74px] pb-[74px]">
         <div className="absolute left-0 top-0">
           <OvalRed></OvalRed>
@@ -293,10 +135,14 @@ export default function Home() {
             </div>
           </div>
         </div>
+
         <div className="absolute right-0 bottom-0">
           <OvalYellow></OvalYellow>
         </div>
       </section>
+      <HomeSectionService></HomeSectionService>
+      <HomeSectionFaq></HomeSectionFaq>
+      <HomeSectionQuestions></HomeSectionQuestions>
     </Layout>
   );
 }

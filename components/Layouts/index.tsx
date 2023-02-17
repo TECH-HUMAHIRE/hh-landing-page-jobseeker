@@ -1,6 +1,10 @@
 import Head from 'next/head';
 import Header from './Header';
 import { ReactNode, useEffect } from 'react';
+import Twitter from '@public/icons/icon-twitter.svg';
+import Linkedin from '@public/icons/icon-linkedin.svg';
+import Facebook from '@public/icons/icon-fb.svg';
+import HumaHireFooter from '@public/icons/huma-hire-logo-footer.svg';
 
 type ILayout = {
   children: ReactNode;
@@ -29,8 +33,9 @@ const Layout: React.FC<ILayout> = ({ children }: ILayout) => {
       <footer className="bg-light-white">
         <div className="container pt-[56px] pb-[82px]">
           <div className="flex">
-            <div className="inline-flex mr-[260px]">
-              <p className="text-dark-grey text-[16px] text-normal w-[290px]">
+            <div className="inline-flex mr-[260px] flex-col">
+              <HumaHireFooter></HumaHireFooter>
+              <p className="text-dark-grey text-[16px] text-normal w-[290px] mt-[30px]">
                 HumaHire is a marketplace that enables everyone to leverage the
                 power of crowdsourcing to recruit.
               </p>
@@ -96,14 +101,21 @@ const Layout: React.FC<ILayout> = ({ children }: ILayout) => {
               Copyright © 2022 HumaHire. All Rights Reserved.
             </span>
             <ul className="inline-flex flex-row">
-              <li className="ml-4">
-                <a href="/">Twit</a>
+              <li className="ml-7">
+                <a href="/">
+                  <Twitter></Twitter>
+                </a>
               </li>
-              <li className="ml-4">
-                <a href="/">Face</a>
+              <li className="ml-7">
+                <a href="/">
+                  <Facebook></Facebook>
+                </a>
               </li>
-              <li className="ml-4">
-                <a href="/">Link</a>
+
+              <li className="ml-7">
+                <a href="/">
+                  <Linkedin></Linkedin>
+                </a>
               </li>
             </ul>
           </div>

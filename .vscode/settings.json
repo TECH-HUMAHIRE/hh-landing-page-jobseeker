@@ -13,5 +13,8 @@
   "beautify.options": {
     "indent_size": 4,
     "indent_level": 2
+  },
+  "files.associations": {
+    "*.css": "tailwindcss"
   }
 }
