@@ -27,7 +27,7 @@ module.exports = {
       },
     },
     colors: {
-      primary: '#20C1AA',
+      primary: '#F57F17',
       secondary: '#F57F17',
       red: '#F44336',
       'error-message': '#F44336',

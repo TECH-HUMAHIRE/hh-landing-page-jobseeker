@@ -40,10 +40,10 @@ export default function Home() {
           <div className="w-[55%] inline-flex flex-col">
             <div className="flex mt-[20px] flex-col">
               <h1 className="m-0 font-bold w-100 text-black text-[64px]">
-                Hire More Effectively
+                Join us now!
               </h1>
               <h4 className="font-normal text-black text-[48px]">
-                Through Crowdsourcing
+                Refer and start earning.
               </h4>
               <p className="w-[89%] mt-[20px] text-[20px] font-normal text-dark-grey">
                 Earn full time income with part time effort. Set your own
@@ -85,7 +85,7 @@ export default function Home() {
           </div>
           <div className="w-[45%] inline-flex">
             <div className="block w-100">
-              <img src="/images/employer.png" alt="employer top"></img>
+              <img src="/images/recruiter.png" alt="recruiter top"></img>
             </div>
           </div>
         </div>
