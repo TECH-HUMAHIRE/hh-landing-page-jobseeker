@@ -40,14 +40,13 @@ export default function Home() {
           <div className="w-[55%] inline-flex flex-col">
             <div className="flex mt-[20px] flex-col">
               <h1 className="m-0 font-bold w-100 text-black text-[64px]">
-                Join us now!
+                Get a Chance
               </h1>
               <h4 className="font-normal text-black text-[48px]">
-                Refer and start earning.
+                Let the Jobs look for you
               </h4>
               <p className="w-[89%] mt-[20px] text-[20px] font-normal text-dark-grey">
-                Earn full time income with part time effort. Set your own
-                flexible hours. The only investment you need is your network.
+                 Earn full time income with part time effort. Set your own flexible hours. The only investment you need is your network.
               </p>
             </div>
             <div className="flex flex-row mt-[40px]">

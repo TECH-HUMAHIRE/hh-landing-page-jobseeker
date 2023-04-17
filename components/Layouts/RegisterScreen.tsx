@@ -130,7 +130,7 @@ const RegisterScreen: React.FC<IHeader> = () => {
               name: name,
               email: email,
               password: password,
-              user_type: 'RECRUITER',
+              user_type: 'JOBSEEKER',
             });
           });
         })

@@ -21,7 +21,7 @@ const Layout: React.FC<ILayout> = ({ children }: ILayout) => {
   return (
     <div className="block w-100">
       <Head>
-        <title>Huma Hire For Recruiter</title>
+        <title>Huma Hire For Jobseeker</title>
         <meta
           name="description"
           content="Hire More Effectively Through Crowdsourcing"
