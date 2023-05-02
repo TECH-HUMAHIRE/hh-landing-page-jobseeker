@@ -4,7 +4,6 @@ import HomeSectionWork from './home/HomeSectionWork';
 import HomeSectionTestimonial from './home/HomeSectionTestimonial';
 import OvalRed from '@public/icons/oval-red.svg';
 import OvalYellow from '@public/icons/oval-yellow.svg';
-import ArrowBottom from '@public/icons/arrow-bottom.svg';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import HomeSectionService from './home/HomeSectionService';
@@ -13,10 +12,10 @@ import HomeSectionQuestions from './home/HomeSectionQuestions';
 
 export default function Home() {
   const router = useRouter();
-  const [faqNumber, setFaqNumber] = useState<number>(0);
-  const onSetFAQ = (currentNumber: number): void => {
-    setFaqNumber(currentNumber === faqNumber ? 0 : currentNumber);
-  };
+  // const [faqNumber, setFaqNumber] = useState<number>(0);
+  // const onSetFAQ = (currentNumber: number): void => {
+  //   setFaqNumber(currentNumber === faqNumber ? 0 : currentNumber);
+  // };
 
   const [haveToken, setHaveToken] = useState<boolean>(false);
   useEffect(() => {
