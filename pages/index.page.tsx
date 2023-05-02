@@ -45,7 +45,8 @@ export default function Home() {
                 Let the Jobs look for you
               </h4>
               <p className="w-[89%] mt-[20px] text-[20px] font-normal text-dark-grey">
-                 Earn full time income with part time effort. Set your own flexible hours. The only investment you need is your network.
+                Earn full time income with part time effort. Set your own
+                flexible hours. The only investment you need is your network.
               </p>
             </div>
             <div className="flex flex-row mt-[40px]">
