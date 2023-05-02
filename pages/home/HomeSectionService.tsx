@@ -1,6 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import Layout from '@components/Layouts';
-import Image from 'next/image';
 import { useState } from 'react';
 import DotService from '@public/icons/dot-service.svg';
 import DotServiceThree from '@public/icons/dot-service-three.svg';
