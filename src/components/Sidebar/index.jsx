@@ -16,112 +16,113 @@ import UsersIcon from '../Icon/Users';
 import StarIcon from '../Icon/Star';
 
 const Sidebar = (props) => {
-    const location = useLocation();
-    // eslint-disable-next-line react/prop-types
-    const { toggleCollapsed = () => {}, collapsed } = props;
-    const [activeIcon, setActiveIcon] = React.useState('dashboard');
+  const location = useLocation();
+  // eslint-disable-next-line react/prop-types
+  const { toggleCollapsed = () => {}, collapsed } = props;
+  const [activeIcon, setActiveIcon] = React.useState('dashboard');
 
-    const routeList = [
-        {
-            uniqName: 'dashboard',
-            label: 'Dashboard',
-            path: '/',
-            end: true,
-            Icon: <HomeIcon active={activeIcon === 'dashboard'} />
-        },
-        {
-            uniqName: 'myResume',
-            label: 'My Resume',
-            path: '/my-resume',
-            Icon: <DraftIcon active={activeIcon === 'myResume'} />
-        },
+  const routeList = [
+    {
+      uniqName: 'dashboard',
+      label: 'Dashboard',
+      path: '/',
+      end: true,
+      Icon: <HomeIcon active={activeIcon === 'dashboard'} />,
+    },
+    {
+      uniqName: 'myResume',
+      label: 'My Resume',
+      path: '/my-resume',
+      Icon: <DraftIcon active={activeIcon === 'myResume'} />,
+    },
 
-        {
-            uniqName: 'inbox',
-            label: 'Inbox',
-            path: '/Inbox',
-            Icon: <CommunicationIcon active={activeIcon === 'inbox'} />
-        },
-        {
-            uniqName: 'help',
-            label: 'Help',
-            path: '/help',
-            Icon: <InfoIcon active={activeIcon === 'help'} />
-        }
-    ];
-    const onActiveIcon = (key) => {
-        setActiveIcon(key);
-    };
+    {
+      uniqName: 'inbox',
+      label: 'Inbox',
+      path: '/Inbox',
+      Icon: <CommunicationIcon active={activeIcon === 'inbox'} />,
+    },
+    {
+      uniqName: 'help',
+      label: 'Help',
+      path: '/help',
+      Icon: <InfoIcon active={activeIcon === 'help'} />,
+    },
+  ];
+  const onActiveIcon = (key) => {
+    setActiveIcon(key);
+  };
 
-    const handleOnGetClassName = (isActive, item) => {
-        let activeMenu = isActive;
-        if (item.uniqName === 'dashboard') {
-            var regex = /accepted-job|interview|archived/;
-            if (regex.test(location.pathname.split('/'))) {
-                activeMenu = true;
-            }
-        }
-        return activeMenu ? 'active nav-link' : 'nav-link';
-    };
-    React.useEffect(() => {
-        if (location.pathname) {
-            let activePath = location.pathname.split('/');
-            setActiveIcon(activePath[1] === '' ? 'dashboard' : activePath[1]);
-        }
-    }, [location]);
-    return (
-        <SidebarStyle collapsed={collapsed}>
-            <Button
-                className="btn-collapsed"
-                onClick={toggleCollapsed}
-                style={{
-                    marginBottom: 16
-                }}>
-                {collapsed ? (
-                    <MenuOutlined
-                        style={{
-                            color: color.employee.primary,
-                            fontWeight: 600
-                        }}
-                    />
-                ) : (
-                    <CloseOutlined
-                        style={{
-                            color: color.employee.primary,
-                            fontWeight: 600
-                        }}
-                    />
-                )}
-            </Button>
-            <Menu
-                className="nav"
-                mode="inline"
-                theme="light"
-                inlineCollapsed={collapsed}>
-                {routeList.map((item) => {
-                    return (
-                        <Menu.Item
-                            key={item.uniqName}
-                            renderItem={() => {
-                                return (
-                                    <NavLink
-                                        onClick={() =>
-                                            onActiveIcon(item.uniqName)
-                                        }
-                                        to={item.path}
-                                        className={({ isActive }) =>
-                                            handleOnGetClassName(isActive, item)
-                                        }>
-                                        {item.Icon}
-                                        <span>{item.label}</span>
-                                    </NavLink>
-                                );
-                            }}
-                        />
-                    );
-                })}
-            </Menu>
-        </SidebarStyle>
-    );
+  const handleOnGetClassName = (isActive, item) => {
+    let activeMenu = isActive;
+    if (item.uniqName === 'dashboard') {
+      var regex = /accepted-job|interview|archived/;
+      if (regex.test(location.pathname.split('/'))) {
+        activeMenu = true;
+      }
+    }
+    return activeMenu ? 'active nav-link' : 'nav-link';
+  };
+  React.useEffect(() => {
+    if (location.pathname) {
+      let activePath = location.pathname.split('/');
+      setActiveIcon(activePath[1] === '' ? 'dashboard' : activePath[1]);
+    }
+  }, [location]);
+  return (
+    <SidebarStyle collapsed={collapsed}>
+      <Button
+        className="btn-collapsed"
+        onClick={toggleCollapsed}
+        style={{
+          marginBottom: 16,
+        }}
+      >
+        {collapsed ? (
+          <MenuOutlined
+            style={{
+              color: color.employee.primary,
+              fontWeight: 600,
+            }}
+          />
+        ) : (
+          <CloseOutlined
+            style={{
+              color: color.employee.primary,
+              fontWeight: 600,
+            }}
+          />
+        )}
+      </Button>
+      <Menu
+        className="nav"
+        mode="inline"
+        theme="light"
+        inlineCollapsed={collapsed}
+      >
+        {routeList.map((item) => {
+          return (
+            <Menu.Item
+              key={item.uniqName}
+              renderItem={() => {
+                return (
+                  <NavLink
+                    onClick={() => onActiveIcon(item.uniqName)}
+                    to={item.path}
+                    className={({ isActive }) =>
+                      handleOnGetClassName(isActive, item)
+                    }
+                  >
+                    {item.Icon}
+                    <span>{item.label}</span>
+                  </NavLink>
+                );
+              }}
+            />
+          );
+        })}
+      </Menu>
+    </SidebarStyle>
+  );
 };
 export default Sidebar;

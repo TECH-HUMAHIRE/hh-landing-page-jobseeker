@@ -4,22 +4,17 @@ import React from 'react';
 import { CheckBoxStyle, SelectStyle } from './checkbox.style';
 
 const CheckBoxForm = (props) => {
-    const {
-        label,
-        onChange = () => {},
-        onPassValue = () => {},
-        checked
-    } = props;
+  const { label, onChange = () => {}, onPassValue = () => {}, checked } = props;
 
-    const onGetValue = (e) => {
-        onChange(e.target.checked);
-        onPassValue(e.target.checked);
-    };
+  const onGetValue = (e) => {
+    onChange(e.target.checked);
+    onPassValue(e.target.checked);
+  };
 
-    return (
-        <CheckBoxStyle checked={checked} onChange={onGetValue}>
-            {label}
-        </CheckBoxStyle>
-    );
+  return (
+    <CheckBoxStyle checked={checked} onChange={onGetValue}>
+      {label}
+    </CheckBoxStyle>
+  );
 };
 export default CheckBoxForm;

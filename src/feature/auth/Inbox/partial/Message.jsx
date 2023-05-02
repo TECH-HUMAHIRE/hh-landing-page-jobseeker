@@ -10,42 +10,43 @@ import MessageBox from '../../../../components/MessageBox';
 import DeleteMessage from '../../../../components/Modal/DeleteMessage';
 
 const MessageTab = ({ message = [1, 2] }) => {
-    const [isDelete, setDelete] = React.useState(false);
-    const onDeleteMessage = () => {
-        setDelete(!isDelete);
-    };
-    return (
-        <div>
-            <Row>
-                <Col md={4}>
-                    <Row>
-                        <Col md={10}>
-                            <Form.Item>
-                                <Input
-                                    prefix={<SearchOutlined />}
-                                    size="large"
-                                    type={'text'}
-                                    placeholder="Search by name"
-                                />
-                            </Form.Item>
-                        </Col>
-                        <Col md={2} style={{ paddingLeft: 0 }}>
-                            <Button
-                                className="message-filter"
-                                block
-                                icon={<FilterOutlined />}></Button>
-                        </Col>
-                    </Row>
-                    <UserListMessage />
-                    {/* <TabMenu item={itemTabs} tabPosition="left" /> */}
-                </Col>
-                <Col md={8}>
-                    {/* <EmptyMessage /> */}
-                    <MessageBox onDeleteMessage={onDeleteMessage} />
-                </Col>
-            </Row>
-            <DeleteMessage isOpen={isDelete} onClose={onDeleteMessage} />
-        </div>
-    );
+  const [isDelete, setDelete] = React.useState(false);
+  const onDeleteMessage = () => {
+    setDelete(!isDelete);
+  };
+  return (
+    <div>
+      <Row>
+        <Col md={4}>
+          <Row>
+            <Col md={10}>
+              <Form.Item>
+                <Input
+                  prefix={<SearchOutlined />}
+                  size="large"
+                  type={'text'}
+                  placeholder="Search by name"
+                />
+              </Form.Item>
+            </Col>
+            <Col md={2} style={{ paddingLeft: 0 }}>
+              <Button
+                className="message-filter"
+                block
+                icon={<FilterOutlined />}
+              ></Button>
+            </Col>
+          </Row>
+          <UserListMessage />
+          {/* <TabMenu item={itemTabs} tabPosition="left" /> */}
+        </Col>
+        <Col md={8}>
+          {/* <EmptyMessage /> */}
+          <MessageBox onDeleteMessage={onDeleteMessage} />
+        </Col>
+      </Row>
+      <DeleteMessage isOpen={isDelete} onClose={onDeleteMessage} />
+    </div>
+  );
 };
 export default MessageTab;

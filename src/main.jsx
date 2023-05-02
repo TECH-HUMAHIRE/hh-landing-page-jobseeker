@@ -8,11 +8,11 @@ import './index.less';
 import { store } from './app/store';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <>
-        <Provider store={store}>
-            <BrowserRouter>
-                <App />
-            </BrowserRouter>
-        </Provider>
-    </>
+  <>
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
+  </>,
 );
