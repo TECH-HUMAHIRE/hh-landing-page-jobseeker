@@ -5,10 +5,6 @@ import FormHTML from '../../../../../components/Form/InputHtml';
 import Button from '../../../../../components/Button';
 
 const EducationForm = ({ onClose = () => {} }) => {
-  const [isCurrently, setCurrently] = React.useState(false);
-  const onCheckCurrently = () => {
-    setCurrently(!isCurrently);
-  };
   return (
     <div style={{ marginBottom: 20 }}>
       <Form layout="vertical">

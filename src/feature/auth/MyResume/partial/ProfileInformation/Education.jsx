@@ -6,6 +6,7 @@ import EditIcon from '../../../../../components/Icon/Edit';
 import TrashIcon from '../../../../../components/Icon/Trash';
 import { color } from '../../../../../components/Utils/variable';
 import EducationForm from './EducationForm';
+import ExperienceForm from './ExperienceForm';
 const Education = ({ data = [] }) => {
   const [isEdit, setEdit] = React.useState(false);
   const [detailJob, setDetailJob] = React.useState(null);
