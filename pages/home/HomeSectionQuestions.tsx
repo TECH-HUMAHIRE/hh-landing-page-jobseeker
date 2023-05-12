@@ -2,7 +2,6 @@ import Email from '@public/icons/icon-email.svg';
 import Call from '@public/icons/icon-call.svg';
 import Address from '@public/icons/icon-address.svg';
 import { Textarea, TextInput } from 'flowbite-react';
-
 export default function HomeSectionQuestions() {
   return (
     <section className="py-[156px] container bg-white relative">
