@@ -1,6 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import Layout from '@components/Layouts';
-import Image from 'next/image';
 import { useState } from 'react';
 import DotService from '@public/icons/dot-service.svg';
 import DotServiceThree from '@public/icons/dot-service-three.svg';
@@ -73,10 +71,12 @@ export default function HomeSectionService() {
         <div className="w-[40%] inline-flex">
           <div className="block w-full relative mt-[90px]">
             <h4 className="font-bold text-[30px] block text-grey">
-            Get Chance to be Offered a Job
+              Get Chance to be Offered a Job
             </h4>
             <p className="font-normal text-[20px] text-dark-grey mt-[10px]">
-            Are you an employer of a company? Humahire can help you to get the best talent for your company needs. You can create a job vacancy and the our recruiter will find the best talent for you.
+              Are you an employer of a company? Humahire can help you to get the
+              best talent for your company needs. You can create a job vacancy
+              and the our recruiter will find the best talent for you.
             </p>
             <a
               href="/"

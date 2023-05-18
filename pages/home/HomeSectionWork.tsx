@@ -1,6 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import Layout from '@components/Layouts';
-import Image from 'next/image';
 import { useState } from 'react';
 import DotOrange from '@public/icons/dot-orange.svg';
 

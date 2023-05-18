@@ -13,7 +13,7 @@ type ILayout = {
 const Layout: React.FC<ILayout> = ({ children }: ILayout) => {
   useEffect(() => {
     if (localStorage.getItem('theme') === 'dark') {
-      document.documentElement.classList.add('light');
+      // document.documentElement.classList.add('light');
     }
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     return () => {};

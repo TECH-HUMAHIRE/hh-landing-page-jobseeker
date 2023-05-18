@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import {
   ISnackBar,
   snackBarType,
@@ -8,10 +8,10 @@ import {
 
 const SnackBar = (props: ISnackBar): any => {
   const { active, status, message, onReset } = props;
-  const [isActive, setActive] = useState<boolean>(false);
+  // const [_, setActive] = useState<boolean>(false);
   const onGetChangeSnackBar = (status: boolean): void => {
     if (status) {
-      setActive(status);
+      // setActive(status);
       setTimeout(() => {
         onReset && onReset(defaultSnackBar);
       }, 3000);
