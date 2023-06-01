@@ -21,6 +21,7 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
 } from '../../lib/firebase/firebase';
+import { signInWithCustomToken } from 'firebase/auth';
 
 type IHeader = {
   children?: ReactNode;
@@ -85,7 +86,6 @@ const RegisterScreen: React.FC<IHeader> = () => {
   const onResetSnackBar = (values: ISnackBarObj): void => setSnackBar(values);
 
   const onPostData: any = async (response: RegisterBody) => {
-    console.log(response, 'response');
     return axios({
       method: 'post',
       url: '/auth/register',
@@ -95,6 +95,21 @@ const RegisterScreen: React.FC<IHeader> = () => {
       .then(({ data, status }) => {
         if (status === 200) {
           if (data?.data?.token) {
+            signInWithCustomToken(auth, data?.data?.token).then(
+              (userCredential) => {
+                userCredential.user.getIdToken().then((response) => {
+                  setSnackBar({
+                    status: 'SUCCESS',
+                    message: 'SUCCESS REGISTER GO TO DASHBOARD',
+                    active: true,
+                  });
+                  router.push('/?page=sign-in');
+                  localStorage.setItem('token', response);
+                  window.location.href = `${process.env.NEXT_PUBLIC_DASHBOARD_URL}/redirect?token=${response}&isVerify${data?.data?.email_verified}&uid=${data?.data?.email_verified}`;
+                  // window.location.href = `http://localhost:5173/redirect?token=${response}&isVerify${data?.data?.email_verified}&uid=${data?.data?.email_verified}`;
+                });
+              },
+            );
             setSnackBar({
               status: 'SUCCESS',
               message: 'SUCCESS REGISTER GO TO DASHBOARD',
@@ -114,45 +129,45 @@ const RegisterScreen: React.FC<IHeader> = () => {
         });
       });
   };
-
   const onSubmitForm: SubmitHandler<Inputs> = async (data) => {
     setLoading(true);
     const { password, email, name, confirm } = data;
     if (confirm) {
-      await createUserWithEmailAndPassword(auth, email, password)
-        .then((res: any) => {
-          const user: any = res.user.auth.currentUser;
-          updateProfile(user, {
-            displayName: name,
-          }).then(async () => {
-            await onPostData({
-              uid: user.uid,
-              name: name,
-              email: email,
-              password: password,
-              user_type: 'JOBSEEKER',
-            });
-          });
-        })
-        .catch((error) => {
-          let messageError = '';
-          switch (error.code) {
-            case 'auth/wrong-password':
-              messageError = `Password you entered doesn't match our records. Please double-check and try again`;
-              break;
-            case 'auth/user-not-found':
-              messageError = `The email you entered doesn't match our records. Please double-check and try again`;
-              break;
-            default:
-              messageError =
-                'Oops! Something went wrong, please try again later.';
-          }
-          setSnackBar({
-            status: 'ERROR',
-            message: messageError.toUpperCase(),
-            active: true,
-          });
-        });
+      await onPostData({
+        name: name,
+        email: email,
+        password: password,
+        user_type: 'JOBSEEKER',
+      });
+
+      // await createUserWithEmailAndPassword(auth, email, password)
+      //   .then((res: any) => {
+      //     const user: any = res.user.auth.currentUser;
+      //     updateProfile(user, {
+      //       displayName: name,
+      //     }).then(async () => {
+
+      //     });
+      //   })
+      //   .catch((error) => {
+      //     let messageError = '';
+      //     switch (error.code) {
+      //       case 'auth/wrong-password':
+      //         messageError = `Password you entered doesn't match our records. Please double-check and try again`;
+      //         break;
+      //       case 'auth/user-not-found':
+      //         messageError = `The email you entered doesn't match our records. Please double-check and try again`;
+      //         break;
+      //       default:
+      //         messageError =
+      //           'Oops! Something went wrong, please try again later.';
+      //     }
+      //     setSnackBar({
+      //       status: 'ERROR',
+      //       message: messageError.toUpperCase(),
+      //       active: true,
+      //     });
+      //   });
       setLoading(false);
     }
   };
