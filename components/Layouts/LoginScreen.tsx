@@ -10,6 +10,7 @@ import type { ISnackBarObj } from '../SnackBar';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { auth, signInWithEmailAndPassword } from '../../lib/firebase/firebase';
+import { signInWithCustomToken } from 'firebase/auth';
 
 type IHeader = {
   children?: ReactNode;
@@ -65,13 +66,20 @@ const LoginScreen: React.FC<IHeader> = () => {
       .then(({ data, status }) => {
         if (status === 200) {
           if (data?.data?.token) {
-            setSnackBar({
-              status: 'SUCCESS',
-              message: 'SUCCESS LOGIN GO TO DASHBOARD',
-              active: true,
-            });
-            localStorage.setItem('token', data?.data?.token);
-            window.location.href = `${process.env.NEXT_PUBLIC_DASHBOARD_URL}/redirect?token=${data?.data?.token}&isVerify${data?.data?.email_verified}&uid=${data?.data?.email_verified}`;
+            signInWithCustomToken(auth, data?.data?.token).then(
+              (userCredential) => {
+                userCredential.user.getIdToken().then((response) => {
+                  setSnackBar({
+                    status: 'SUCCESS',
+                    message: 'SUCCESS LOGIN GO TO DASHBOARD',
+                    active: true,
+                  });
+                  localStorage.setItem('token', response);
+                  window.location.href = `${process.env.NEXT_PUBLIC_DASHBOARD_URL}/redirect?token=${response}&isVerify${data?.data?.email_verified}&uid=${data?.data?.email_verified}&refresh_token=${userCredential.user.refreshToken}`;
+                  // window.location.href = `http://localhost:5173/redirect?token=${response}&isVerify${data?.data?.email_verified}&uid=${data?.data?.email_verified}`;
+                });
+              },
+            );
           }
         }
       })
@@ -89,29 +97,30 @@ const LoginScreen: React.FC<IHeader> = () => {
   const onSubmitForm: SubmitHandler<Inputs> = async (data) => {
     const { password, email } = data;
     setLoading(true);
-    await signInWithEmailAndPassword(auth, email, password)
-      .then(async () => {
-        await onPostData(email, password);
-      })
-      .catch((error) => {
-        let messageError = '';
-        switch (error.code) {
-          case 'auth/wrong-password':
-            messageError = `Password you entered doesn't match our records. Please double-check and try again`;
-            break;
-          case 'auth/user-not-found':
-            messageError = `The email you entered doesn't match our records. Please double-check and try again`;
-            break;
-          default:
-            messageError =
-              'Oops! Something went wrong, please try again later.';
-        }
-        setSnackBar({
-          status: 'ERROR',
-          message: messageError.toUpperCase(),
-          active: true,
-        });
-      });
+    await onPostData(email, password);
+    // await signInWithEmailAndPassword(auth, email, password)
+    //   .then(async () => {
+    //     await onPostData(email, password);
+    //   })
+    //   .catch((error) => {
+    //     let messageError = '';
+    //     switch (error.code) {
+    //       case 'auth/wrong-password':
+    //         messageError = `Password you entered doesn't match our records. Please double-check and try again`;
+    //         break;
+    //       case 'auth/user-not-found':
+    //         messageError = `The email you entered doesn't match our records. Please double-check and try again`;
+    //         break;
+    //       default:
+    //         messageError =
+    //           'Oops! Something went wrong, please try again later.';
+    //     }
+    //     setSnackBar({
+    //       status: 'ERROR',
+    //       message: messageError.toUpperCase(),
+    //       active: true,
+    //     });
+    //   });
     setLoading(false);
   };
   return (
