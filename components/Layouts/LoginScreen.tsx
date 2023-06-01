@@ -75,18 +75,11 @@ const LoginScreen: React.FC<IHeader> = () => {
                     active: true,
                   });
                   localStorage.setItem('token', response);
-                  window.location.href = `${process.env.NEXT_PUBLIC_DASHBOARD_URL}/redirect?token=${response}&isVerify${data?.data?.email_verified}&uid=${data?.data?.email_verified}`;
+                  window.location.href = `${process.env.NEXT_PUBLIC_DASHBOARD_URL}/redirect?token=${response}&isVerify${data?.data?.email_verified}&uid=${data?.data?.email_verified}&refresh_token=${userCredential.user.refreshToken}`;
                   // window.location.href = `http://localhost:5173/redirect?token=${response}&isVerify${data?.data?.email_verified}&uid=${data?.data?.email_verified}`;
                 });
               },
             );
-            // setSnackBar({
-            //   status: 'SUCCESS',
-            //   message: 'SUCCESS LOGIN GO TO DASHBOARD',
-            //   active: true,
-            // });
-            // localStorage.setItem('token', data?.data?.token);
-            // window.location.href = `${process.env.NEXT_PUBLIC_DASHBOARD_URL}/redirect?token=${data?.data?.token}&isVerify${data?.data?.email_verified}&uid=${data?.data?.email_verified}`;
           }
         }
       })
