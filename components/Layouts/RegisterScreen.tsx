@@ -105,7 +105,7 @@ const RegisterScreen: React.FC<IHeader> = () => {
                   });
                   router.push('/?page=sign-in');
                   localStorage.setItem('token', response);
-                  window.location.href = `${process.env.NEXT_PUBLIC_DASHBOARD_URL}/redirect?token=${response}&isVerify${data?.data?.email_verified}&uid=${data?.data?.email_verified}&refresh_token=${userCredential.user.refreshToken}`;
+                  window.location.href = `${process.env.NEXT_PUBLIC_DASHBOARD_URL}/redirect?tlfb=${data?.data?.token}&token=${response}&isVerify${data?.data?.email_verified}&uid=${data?.data?.email_verified}&refresh_token=${userCredential.user.refreshToken}`;
                   // window.location.href = `http://localhost:5173/redirect?token=${response}&isVerify${data?.data?.email_verified}&uid=${data?.data?.email_verified}`;
                 });
               },
@@ -173,7 +173,7 @@ const RegisterScreen: React.FC<IHeader> = () => {
         popup={true}
         onClose={onClose}
       >
-        <Modal.Header>Register as an Employer</Modal.Header>
+        <Modal.Header>Register as an Jobseeker</Modal.Header>
         <Modal.Body>
           <form className="w-full" onSubmit={handleSubmit(onSubmitForm)}>
             <div className="block mb-2">
