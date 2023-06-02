@@ -133,7 +133,7 @@ const LoginScreen: React.FC<IHeader> = () => {
         popup={true}
         onClose={onClose}
       >
-        <Modal.Header>Login as an Employer</Modal.Header>
+        <Modal.Header>Login as an Jobseeker</Modal.Header>
         <Modal.Body>
           <form onSubmit={handleSubmit(onSubmitForm)} className="w-full">
             <div className="block mb-[24px]">
