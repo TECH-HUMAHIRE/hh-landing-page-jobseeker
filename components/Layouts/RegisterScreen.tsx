@@ -173,7 +173,7 @@ const RegisterScreen: React.FC<IHeader> = () => {
         popup={true}
         onClose={onClose}
       >
-        <Modal.Header>Register as an Employer</Modal.Header>
+        <Modal.Header>Register as an Jobseeker</Modal.Header>
         <Modal.Body>
           <form className="w-full" onSubmit={handleSubmit(onSubmitForm)}>
             <div className="block mb-2">
