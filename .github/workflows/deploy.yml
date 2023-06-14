@@ -45,9 +45,16 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build-files
-
+      
       - name: Delete Stop and Delete Previous Next.js
-        run: ssh -o StrictHostKeyChecking=no -i ${{ secrets.EC2_PRIVATE_KEY }} ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} 'rm -rf /home/ubuntulanding-page/jobseeker/tmp && mkdir /home/ubuntulanding-page/jobseeker/tmp'
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.EC2_HOST_DEV }}
+          username: ${{ secrets.EC2_USERNAME_DEV }}
+          key: ${{ secrets.EC2_PRIVATE_KEY_DEV }}
+          script: |
+            rm -rf /home/ubuntulanding-page/jobseeker/tmp
+            mkdir /home/ubuntulanding-page/jobseeker/tmp 
       
       - name: Copy build files to EC2 instance
         uses: appleboy/scp-action@master
