@@ -14,6 +14,7 @@ import { signInWithCustomToken } from 'firebase/auth';
 
 type IHeader = {
   children?: ReactNode;
+  showModalForgotPassword: any;
 };
 
 type Inputs = {
@@ -34,7 +35,8 @@ const schema = yup
   })
   .required();
 
-const LoginScreen: React.FC<IHeader> = () => {
+const LoginScreen: React.FC<IHeader> = (props) => {
+  const { showModalForgotPassword } = props;
   const {
     register,
     handleSubmit,
@@ -173,15 +175,12 @@ const LoginScreen: React.FC<IHeader> = () => {
             </div>
             <div className="flex justify-between">
               <div className="flex items-center justify-end w-full  pb-[40px]">
-                <Link
-                  href={{
-                    pathname: '/',
-                    query: { page: 'register' },
-                  }}
-                  className="text-primary inline-flex text-bold text-[16px]"
+                <div
+                  className="text-primary text-[16px] font-bold cursor-pointer"
+                  onClick={showModalForgotPassword}
                 >
-                  Forget password?
-                </Link>
+                  Forgot password?
+                </div>
               </div>
             </div>
             <div className="w-full flex flex-col">
