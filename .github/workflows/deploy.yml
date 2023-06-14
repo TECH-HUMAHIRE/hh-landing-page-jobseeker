@@ -30,6 +30,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Check Build
+        run: ls -liah
+
       - name: Archive build files
         uses: actions/upload-artifact@v2
         with:
@@ -46,6 +49,9 @@ jobs:
         with:
           name: build-files
       
+      - name: Check Files
+        run: ls -liah
+
       - name: Delete Stop and Delete Previous Next.js
         uses: appleboy/ssh-action@master
         with:
