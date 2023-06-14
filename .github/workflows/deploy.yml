@@ -53,7 +53,6 @@ jobs:
           username: ${{ secrets.EC2_USERNAME_DEV }}
           key: ${{ secrets.EC2_PRIVATE_KEY_DEV }}
           script: |
-#            kill $(lsof -t -i:3000)
             rm -rf /home/ubuntu/landing-page/jobseeker/tmp
             mkdir /home/ubuntu/landing-page/jobseeker/tmp 
       
