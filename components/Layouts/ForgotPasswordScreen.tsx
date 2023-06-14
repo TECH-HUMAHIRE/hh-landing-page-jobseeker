@@ -1,11 +1,10 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, Label, Modal, Spinner, TextInput } from 'flowbite-react';
+import { Button, Label, Modal, TextInput } from 'flowbite-react';
 import { ReactNode, useState } from 'react';
 import * as yup from 'yup';
 import SnackBar from '../SnackBar';
 import type { ISnackBarObj } from '../SnackBar';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import Link from 'next/link';
 import axios from 'axios';
 type IHeader = {
   children?: ReactNode;
@@ -24,7 +23,7 @@ const schema = yup
   })
   .required();
 const ForgotPasswordScreen: React.FC<IHeader> = ({
-  showModalForgotPassword = () => {},
+  showModalForgotPassword,
   isOpen,
 }) => {
   const {
