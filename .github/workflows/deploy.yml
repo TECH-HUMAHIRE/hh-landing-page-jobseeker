@@ -72,4 +72,4 @@ jobs:
           script: |
             cd /home/ubuntu/landing-page/jobseeker/tmp/
             npm install
-            npm run start
+            pm2 start npm --name "jobseeker" -- start
