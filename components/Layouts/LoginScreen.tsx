@@ -14,6 +14,7 @@ import { signInWithCustomToken } from 'firebase/auth';
 
 type IHeader = {
   children?: ReactNode;
+  showModalForgotPassword: any;
 };
 
 type Inputs = {
@@ -34,7 +35,8 @@ const schema = yup
   })
   .required();
 
-const LoginScreen: React.FC<IHeader> = () => {
+const LoginScreen: React.FC<IHeader> = (props) => {
+  const { showModalForgotPassword } = props;
   const {
     register,
     handleSubmit,
@@ -75,7 +77,7 @@ const LoginScreen: React.FC<IHeader> = () => {
                     active: true,
                   });
                   localStorage.setItem('token', response);
-                  window.location.href = `${process.env.NEXT_PUBLIC_DASHBOARD_URL}/redirect?token=${response}&isVerify${data?.data?.email_verified}&uid=${data?.data?.email_verified}&refresh_token=${userCredential.user.refreshToken}`;
+                  window.location.href = `${process.env.NEXT_PUBLIC_DASHBOARD_URL}/redirect?tlfb=${data?.data?.token}&token=${response}&isVerify${data?.data?.email_verified}&uid=${data?.data?.email_verified}&refresh_token=${userCredential.user.refreshToken}`;
                   // window.location.href = `http://localhost:5173/redirect?token=${response}&isVerify${data?.data?.email_verified}&uid=${data?.data?.email_verified}`;
                 });
               },
@@ -133,17 +135,17 @@ const LoginScreen: React.FC<IHeader> = () => {
         popup={true}
         onClose={onClose}
       >
-        <Modal.Header>Login as an Employer</Modal.Header>
+        <Modal.Header>Login as an Jobseeker</Modal.Header>
         <Modal.Body>
           <form onSubmit={handleSubmit(onSubmitForm)} className="w-full">
             <div className="block mb-[24px]">
               <div className="mb-2 block">
-                <Label htmlFor="email" value="Your Email" />
+                <Label htmlFor="email" value="Email" />
               </div>
               <TextInput
                 {...register('email')}
                 id="email"
-                placeholder="xxx@humaihire.com"
+                placeholder="Email"
                 helperText={
                   errors?.email?.message && (
                     <span className="text-[10px] text-error-message">
@@ -155,13 +157,13 @@ const LoginScreen: React.FC<IHeader> = () => {
             </div>
             <div className="block mb-[24px]">
               <div className="mb-2 block">
-                <Label htmlFor="password" value="Your Password" />
+                <Label htmlFor="password" value="Password" />
               </div>
               <TextInput
                 {...register('password')}
                 id="password"
                 type="password"
-                placeholder="password"
+                placeholder="Password"
                 helperText={
                   errors?.password?.message && (
                     <span className="text-[10px] text-error-message">
@@ -173,15 +175,12 @@ const LoginScreen: React.FC<IHeader> = () => {
             </div>
             <div className="flex justify-between">
               <div className="flex items-center justify-end w-full  pb-[40px]">
-                <Link
-                  href={{
-                    pathname: '/',
-                    query: { page: 'register' },
-                  }}
-                  className="text-primary inline-flex text-bold text-[16px]"
+                <div
+                  className="text-primary text-[16px] font-bold cursor-pointer"
+                  onClick={showModalForgotPassword}
                 >
-                  Forget password?
-                </Link>
+                  Forgot password?
+                </div>
               </div>
             </div>
             <div className="w-full flex flex-col">

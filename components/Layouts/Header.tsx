@@ -5,6 +5,7 @@ import { ReactNode } from 'react';
 import LoginScreen from './LoginScreen';
 import RegisterScreen from './RegisterScreen';
 import { useRouter } from 'next/router';
+import ForgotPasswordScreen from './ForgotPasswordScreen';
 
 type IHeader = {
   children?: ReactNode;
@@ -14,6 +15,12 @@ const Header: React.FC<IHeader> = () => {
   const router = useRouter();
   // typeof window !== 'undefined' && localStorage.getItem('token')
   const [haveToken, setHaveToken] = useState<boolean>(false);
+  const [isForgot, setForgot] = useState<boolean>(false);
+
+  const showModalForgotPassword: any = () => {
+    router.push('/');
+    setForgot(!isForgot);
+  };
   useEffect(() => {
     // Perform localStorage action
     setHaveToken(localStorage.getItem('token') ? true : false);
@@ -111,8 +118,14 @@ const Header: React.FC<IHeader> = () => {
       </header>
       {!haveToken && (
         <>
-          <LoginScreen></LoginScreen>
+          <LoginScreen
+            showModalForgotPassword={showModalForgotPassword}
+          ></LoginScreen>
           <RegisterScreen></RegisterScreen>
+          <ForgotPasswordScreen
+            isOpen={isForgot}
+            showModalForgotPassword={showModalForgotPassword}
+          ></ForgotPasswordScreen>
         </>
       )}
     </>

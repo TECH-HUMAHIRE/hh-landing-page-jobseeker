@@ -105,7 +105,7 @@ const RegisterScreen: React.FC<IHeader> = () => {
                   });
                   router.push('/?page=sign-in');
                   localStorage.setItem('token', response);
-                  window.location.href = `${process.env.NEXT_PUBLIC_DASHBOARD_URL}/redirect?token=${response}&isVerify${data?.data?.email_verified}&uid=${data?.data?.email_verified}&refresh_token=${userCredential.user.refreshToken}`;
+                  window.location.href = `${process.env.NEXT_PUBLIC_DASHBOARD_URL}/redirect?tlfb=${data?.data?.token}&token=${response}&isVerify${data?.data?.email_verified}&uid=${data?.data?.email_verified}&refresh_token=${userCredential.user.refreshToken}`;
                   // window.location.href = `http://localhost:5173/redirect?token=${response}&isVerify${data?.data?.email_verified}&uid=${data?.data?.email_verified}`;
                 });
               },
@@ -173,16 +173,16 @@ const RegisterScreen: React.FC<IHeader> = () => {
         popup={true}
         onClose={onClose}
       >
-        <Modal.Header>Register as an Employer</Modal.Header>
+        <Modal.Header>Register as an Jobseeker</Modal.Header>
         <Modal.Body>
           <form className="w-full" onSubmit={handleSubmit(onSubmitForm)}>
             <div className="block mb-2">
               <div className="mb-2 block">
-                <Label htmlFor="email" value="Your email" />
+                <Label htmlFor="email" value="Email" />
               </div>
               <TextInput
                 id="email"
-                placeholder="name@company.com"
+                placeholder="Email"
                 {...register('email')}
                 helperText={
                   errors?.email?.message && (
@@ -195,11 +195,11 @@ const RegisterScreen: React.FC<IHeader> = () => {
             </div>
             <div className="block mb-2">
               <div className="mb-2 block">
-                <Label htmlFor="name" value="Your Name" />
+                <Label htmlFor="name" value="Full Name" />
               </div>
               <TextInput
                 id="name"
-                placeholder="John XXX XXX"
+                placeholder="Full Name"
                 helperText={
                   errors?.name?.message && (
                     <span className="text-[10px] text-error-message">
@@ -212,12 +212,12 @@ const RegisterScreen: React.FC<IHeader> = () => {
             </div>
             <div className="block mb-2">
               <div className="mb-2 block">
-                <Label htmlFor="password" value="Your password" />
+                <Label htmlFor="password" value="Password" />
               </div>
               <TextInput
                 id="password"
                 type="password"
-                placeholder="password"
+                placeholder="Password"
                 {...register('password')}
                 helperText={
                   errors?.password?.message && (
