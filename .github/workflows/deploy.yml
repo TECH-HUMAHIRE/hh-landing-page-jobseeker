@@ -68,6 +68,6 @@ jobs:
           username: ${{ secrets.EC2_USERNAME_DEV }}
           key: ${{ secrets.EC2_PRIVATE_KEY_DEV }}
           script: |
-            cd /home/ubuntu
+            cd /home/ubuntu/landing-page/jobseeker/tmp/
             npm install
             npm run start
