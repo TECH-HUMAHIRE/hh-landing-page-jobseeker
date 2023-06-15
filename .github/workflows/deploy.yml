@@ -71,7 +71,5 @@ jobs:
           key: ${{ secrets.EC2_PRIVATE_KEY_DEV }}
           script: |
             cd /home/ubuntu/landing-page/jobseeker/tmp/
-            ls -liah
-            nvm use 17.4.0
             npm install
             npm run start
