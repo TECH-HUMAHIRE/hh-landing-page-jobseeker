@@ -71,5 +71,6 @@ jobs:
           key: ${{ secrets.EC2_PRIVATE_KEY_DEV }}
           script: |
             cd /home/ubuntu/landing-page/jobseeker/tmp/
+            nvm use 15.0.0
             npm install
             npm run start
