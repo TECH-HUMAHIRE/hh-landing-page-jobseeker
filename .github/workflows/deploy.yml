@@ -41,7 +41,9 @@ jobs:
             sudo mkdir /home/ubuntu/landing-page/jobseeker/tmp
 
       - name: Copy SSH Key to File
-        run: echo "$EC2_PRIVATE_KEY_DEV" > EC2_KEY.pem
+        run: |
+          echo "$EC2_PRIVATE_KEY_DEV" > EC2_KEY.pem
+          chmod 600 EC2_KEY.pem
         env:
           EC2_PRIVATE_KEY_DEV: ${{ secrets.EC2_PRIVATE_KEY_DEV }}
 
