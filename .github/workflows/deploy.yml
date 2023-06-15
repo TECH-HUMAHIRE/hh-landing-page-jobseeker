@@ -39,7 +39,7 @@ jobs:
           script: |
             sudo rm -rf /home/ubuntu/landing-page/jobseeker/tmp
             sudo mkdir /home/ubuntu/landing-page/jobseeker/tmp
-            sudo chmod 700 /home/ubuntu/landing-page/jobseeker/tmp
+            sudo chmod 777 /home/ubuntu/landing-page/jobseeker/tmp
 
       - name: Copy SSH Key to File
         run: |
