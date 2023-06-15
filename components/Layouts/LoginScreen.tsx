@@ -140,12 +140,12 @@ const LoginScreen: React.FC<IHeader> = (props) => {
           <form onSubmit={handleSubmit(onSubmitForm)} className="w-full">
             <div className="block mb-[24px]">
               <div className="mb-2 block">
-                <Label htmlFor="email" value="Your Email" />
+                <Label htmlFor="email" value="Email" />
               </div>
               <TextInput
                 {...register('email')}
                 id="email"
-                placeholder="xxx@humaihire.com"
+                placeholder="Email"
                 helperText={
                   errors?.email?.message && (
                     <span className="text-[10px] text-error-message">
@@ -157,13 +157,13 @@ const LoginScreen: React.FC<IHeader> = (props) => {
             </div>
             <div className="block mb-[24px]">
               <div className="mb-2 block">
-                <Label htmlFor="password" value="Your Password" />
+                <Label htmlFor="password" value="Password" />
               </div>
               <TextInput
                 {...register('password')}
                 id="password"
                 type="password"
-                placeholder="password"
+                placeholder="Password"
                 helperText={
                   errors?.password?.message && (
                     <span className="text-[10px] text-error-message">
