@@ -3,7 +3,15 @@ name: HH-Landing-Page-Jobseeker Workflow
 on:
   push:
     branches:
-      - create-workflow
+      - create-workflow #Temporary
+  pull_request:
+    branches:
+      - develop
+    types:
+      - closed
+  create:
+    tags:
+      - '*'
 
 jobs:
   Build:
@@ -30,7 +38,8 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Delete Stop and Delete Previous Next.js
+      - name: Delete Previous Next.js on Develop
+        if: github.ref == 'refs/heads/create-workflow' #Temporary
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST_DEV }}
@@ -41,25 +50,55 @@ jobs:
             sudo mkdir /home/ubuntu/landing-page/jobseeker/tmp
             sudo chmod 777 /home/ubuntu/landing-page/jobseeker/tmp
 
-      - name: Copy SSH Key to File
+      - name: Delete Previous Next.js on Production
+        if: github.ref == 'refs/heads/create-workflow' #Temporary
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST_DEV }} #Temporary
+          username: ${{ secrets.EC2_USERNAME_DEV }} #Temporary
+          key: ${{ secrets.EC2_PRIVATE_KEY_DEV }} #Temporary
+          script: |
+            sudo rm -rf /home/ubuntu/landing-page/jobseeker/tmp
+            sudo mkdir /home/ubuntu/landing-page/jobseeker/tmp
+            sudo chmod 777 /home/ubuntu/landing-page/jobseeker/tmp
+
+      - name: Copy SSH Develop Key to File
+        if: github.ref == 'refs/heads/create-workflow' ##Temporary
         run: |
           echo "$EC2_PRIVATE_KEY_DEV" > EC2_KEY.pem
           chmod 600 EC2_KEY.pem
         env:
           EC2_PRIVATE_KEY_DEV: ${{ secrets.EC2_PRIVATE_KEY_DEV }}
 
+      - name: Copy SSH Production Key to File
+        if: github.event_name == 'create' && github.event.ref_type == 'tag'
+        run: |
+          echo "$EC2_PRIVATE_KEY_DEV" > EC2_KEY.pem
+          chmod 600 EC2_KEY.pem
+        #^^^^^^Temporary^^^^  
+        env:
+          EC2_PRIVATE_KEY_DEV: ${{ secrets.EC2_PRIVATE_KEY_DEV }} #Temporary
+
       - name: Update known_hosts
         run: |
           mkdir -p ~/.ssh
           ssh-keyscan -H ${{ secrets.EC2_HOST_DEV }} >> ~/.ssh/known_hosts
 
-      - name: Copy build files to EC2 instance
+      - name: Copy build files to Develop EC2 instance
+        if: github.ref == 'refs/heads/create-workflow' #Temporary
         run: |
           scp -i EC2_KEY.pem -r .next ${{ secrets.EC2_USERNAME_DEV }}@${{ secrets.EC2_HOST_DEV }}:/home/ubuntu/landing-page/jobseeker/tmp/.next
           scp -i EC2_KEY.pem package.json ${{ secrets.EC2_USERNAME_DEV }}@${{ secrets.EC2_HOST_DEV }}:/home/ubuntu/landing-page/jobseeker/tmp/package.json
 
-  Deploy:
+      - name: Copy build files to Production EC2 instance
+        if: github.event_name == 'create' && github.event.ref_type == 'tag'
+        run: |
+          scp -i EC2_KEY.pem -r .next ${{ secrets.EC2_USERNAME_DEV }}@${{ secrets.EC2_HOST_DEV }}:/home/ubuntu/landing-page/jobseeker/tmp/.next
+          scp -i EC2_KEY.pem package.json ${{ secrets.EC2_USERNAME_DEV }}@${{ secrets.EC2_HOST_DEV }}:/home/ubuntu/landing-page/jobseeker/tmp/package.json
+      #^^^^^^^^^^^^^^^^^Temporary^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  DeployOnDev:
     needs: Build
+    if: github.ref == 'refs/heads/create-workflow'
     runs-on: ubuntu-latest
 
     steps:
@@ -72,4 +111,23 @@ jobs:
           script: |
             cd /home/ubuntu/landing-page/jobseeker/tmp/
             npm install
+            pm2 delete jobseeker
+            pm2 start npm --name "jobseeker" -- start
+
+  DeployOnTagCreation:
+    needs: Build
+    if: github.event_name == 'create' && github.event.ref_type == 'tag'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install Dependencies and Run Next.js
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST_DEV }} #Temporary
+          username: ${{ secrets.EC2_USERNAME_DEV }} #Temporary
+          key: ${{ secrets.EC2_PRIVATE_KEY_DEV }} #Temporary
+          script: |
+            cd /home/ubuntu/landing-page/jobseeker/tmp/
+            npm install
+            pm2 delete jobseeker
             pm2 start npm --name "jobseeker" -- start
