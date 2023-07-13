@@ -73,6 +73,7 @@ const RegisterScreen: React.FC<IHeader> = () => {
     },
   });
   const [isLoading, setLoading] = useState<boolean>(false);
+  const [isShowPassword, setShowPassword] = useState<boolean>(false);
   const [snackBarData, setSnackBar] = useState<ISnackBarObj>({
     active: false,
     status: '',
@@ -82,7 +83,9 @@ const RegisterScreen: React.FC<IHeader> = () => {
   const onClose = () => {
     router.push('/');
   };
-
+  const handleShowPassword = () => {
+    setShowPassword(!isShowPassword);
+  };
   const onResetSnackBar = (values: ISnackBarObj): void => setSnackBar(values);
 
   const onPostData: any = async (response: RegisterBody) => {
@@ -214,19 +217,27 @@ const RegisterScreen: React.FC<IHeader> = () => {
               <div className="mb-2 block">
                 <Label htmlFor="password" value="Password" />
               </div>
-              <TextInput
-                id="password"
-                type="password"
-                placeholder="Password"
-                {...register('password')}
-                helperText={
-                  errors?.password?.message && (
-                    <span className="text-[10px] text-error-message">
-                      {errors?.password?.message}
-                    </span>
-                  )
-                }
-              />
+              <div className="relative">
+                <TextInput
+                  {...register('password')}
+                  id="password"
+                  type={isShowPassword ? 'text' : 'password'}
+                  placeholder="Password"
+                  helperText={
+                    errors?.password?.message && (
+                      <span className="text-[10px] text-error-message">
+                        {errors?.password?.message}
+                      </span>
+                    )
+                  }
+                />
+                <img
+                  onClick={handleShowPassword}
+                  src="/icons/eye.svg"
+                  alt="eye"
+                  className="absolute cursor-pointer right-0 top-0 p-3"
+                />
+              </div>
             </div>
             <div className="flex justify-between">
               <Controller
