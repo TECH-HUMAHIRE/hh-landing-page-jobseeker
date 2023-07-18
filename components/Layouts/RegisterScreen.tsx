@@ -73,6 +73,7 @@ const RegisterScreen: React.FC<IHeader> = () => {
     },
   });
   const [isLoading, setLoading] = useState<boolean>(false);
+  const [isShowPassword, setShowPassword] = useState<boolean>(false);
   const [snackBarData, setSnackBar] = useState<ISnackBarObj>({
     active: false,
     status: '',
@@ -82,7 +83,9 @@ const RegisterScreen: React.FC<IHeader> = () => {
   const onClose = () => {
     router.push('/');
   };
-
+  const handleShowPassword = () => {
+    setShowPassword(!isShowPassword);
+  };
   const onResetSnackBar = (values: ISnackBarObj): void => setSnackBar(values);
 
   const onPostData: any = async (response: RegisterBody) => {
@@ -178,11 +181,11 @@ const RegisterScreen: React.FC<IHeader> = () => {
           <form className="w-full" onSubmit={handleSubmit(onSubmitForm)}>
             <div className="block mb-2">
               <div className="mb-2 block">
-                <Label htmlFor="email" value="Your email" />
+                <Label htmlFor="email" value="Email" />
               </div>
               <TextInput
                 id="email"
-                placeholder="name@company.com"
+                placeholder="Email"
                 {...register('email')}
                 helperText={
                   errors?.email?.message && (
@@ -195,11 +198,11 @@ const RegisterScreen: React.FC<IHeader> = () => {
             </div>
             <div className="block mb-2">
               <div className="mb-2 block">
-                <Label htmlFor="name" value="Your Name" />
+                <Label htmlFor="name" value="Full Name" />
               </div>
               <TextInput
                 id="name"
-                placeholder="John XXX XXX"
+                placeholder="Full Name"
                 helperText={
                   errors?.name?.message && (
                     <span className="text-[10px] text-error-message">
@@ -212,21 +215,29 @@ const RegisterScreen: React.FC<IHeader> = () => {
             </div>
             <div className="block mb-2">
               <div className="mb-2 block">
-                <Label htmlFor="password" value="Your password" />
+                <Label htmlFor="password" value="Password" />
               </div>
-              <TextInput
-                id="password"
-                type="password"
-                placeholder="password"
-                {...register('password')}
-                helperText={
-                  errors?.password?.message && (
-                    <span className="text-[10px] text-error-message">
-                      {errors?.password?.message}
-                    </span>
-                  )
-                }
-              />
+              <div className="relative">
+                <TextInput
+                  {...register('password')}
+                  id="password"
+                  type={isShowPassword ? 'text' : 'password'}
+                  placeholder="Password"
+                  helperText={
+                    errors?.password?.message && (
+                      <span className="text-[10px] text-error-message">
+                        {errors?.password?.message}
+                      </span>
+                    )
+                  }
+                />
+                <img
+                  onClick={handleShowPassword}
+                  src="/icons/eye.svg"
+                  alt="eye"
+                  className="absolute cursor-pointer right-0 top-0 p-3"
+                />
+              </div>
             </div>
             <div className="flex justify-between">
               <Controller

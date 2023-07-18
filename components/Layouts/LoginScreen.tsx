@@ -46,6 +46,7 @@ const LoginScreen: React.FC<IHeader> = (props) => {
   });
   const router = useRouter();
   const [isLoading, setLoading] = useState<boolean>(false);
+  const [isShowPassword, setShowPassword] = useState<boolean>(false);
   const [snackBarData, setSnackBar] = useState<ISnackBarObj>({
     active: false,
     status: '',
@@ -54,7 +55,9 @@ const LoginScreen: React.FC<IHeader> = (props) => {
   const onClose = () => {
     router.push('/');
   };
-
+  const handleShowPassword = () => {
+    setShowPassword(!isShowPassword);
+  };
   const onPostData: any = async (email: string, password: string) => {
     return axios({
       method: 'post',
@@ -140,12 +143,12 @@ const LoginScreen: React.FC<IHeader> = (props) => {
           <form onSubmit={handleSubmit(onSubmitForm)} className="w-full">
             <div className="block mb-[24px]">
               <div className="mb-2 block">
-                <Label htmlFor="email" value="Your Email" />
+                <Label htmlFor="email" value="Email" />
               </div>
               <TextInput
                 {...register('email')}
                 id="email"
-                placeholder="xxx@humaihire.com"
+                placeholder="Email"
                 helperText={
                   errors?.email?.message && (
                     <span className="text-[10px] text-error-message">
@@ -157,21 +160,29 @@ const LoginScreen: React.FC<IHeader> = (props) => {
             </div>
             <div className="block mb-[24px]">
               <div className="mb-2 block">
-                <Label htmlFor="password" value="Your Password" />
+                <Label htmlFor="password" value="Password" />
               </div>
-              <TextInput
-                {...register('password')}
-                id="password"
-                type="password"
-                placeholder="password"
-                helperText={
-                  errors?.password?.message && (
-                    <span className="text-[10px] text-error-message">
-                      {errors?.password?.message}
-                    </span>
-                  )
-                }
-              />
+              <div className="relative">
+                <TextInput
+                  {...register('password')}
+                  id="password"
+                  type={isShowPassword ? 'text' : 'password'}
+                  placeholder="Password"
+                  helperText={
+                    errors?.password?.message && (
+                      <span className="text-[10px] text-error-message">
+                        {errors?.password?.message}
+                      </span>
+                    )
+                  }
+                />
+                <img
+                  onClick={handleShowPassword}
+                  src="/icons/eye.svg"
+                  alt="eye"
+                  className="absolute cursor-pointer right-0 top-0 p-3"
+                />
+              </div>
             </div>
             <div className="flex justify-between">
               <div className="flex items-center justify-end w-full  pb-[40px]">
