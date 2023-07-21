@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Logo from '@public/icons/recruiter-two.svg';
+import Logo from '@public/icons/jobseeker.svg';
 import { ReactNode } from 'react';
 import LoginScreen from './LoginScreen';
 import RegisterScreen from './RegisterScreen';
