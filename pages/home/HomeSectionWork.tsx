@@ -9,7 +9,10 @@ export default function HomeSectionWork() {
     setActiveNumber(activeNumber);
   };
   return (
-    <section className="pt-[95px] pb-[95px] pl-[80px] bg-light-orange">
+    <section
+      id="how-it-work"
+      className="pt-[95px] pb-[95px] pl-[80px] bg-light-orange"
+    >
       <div className="flex justify-between">
         <div className="w-[35%] inline-flex">
           <div className="block relative">

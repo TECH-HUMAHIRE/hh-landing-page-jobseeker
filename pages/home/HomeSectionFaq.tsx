@@ -9,7 +9,7 @@ export default function HomeSectionFaq() {
   };
 
   return (
-    <section className="py-[156px] container bg-white relative">
+    <section id="FAQ" className="py-[156px] container bg-white relative">
       <div className="absolute bottom-0 left-0 right-0 flex justify-center items-center">
         <ShapeFaq></ShapeFaq>
       </div>
