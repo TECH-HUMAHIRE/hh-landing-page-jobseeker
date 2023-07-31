@@ -57,7 +57,7 @@ export default function HomeSectionWork() {
     setWidth(refElement?.current.offsetWidth);
   }, []);
   return (
-    <section className="pt-[95px] pb-[95px] px-[80px] relative">
+    <section id="testimony" className="pt-[95px] pb-[95px] px-[80px] relative">
       <div className="absolute left-0">
         <Ellipsis></Ellipsis>
       </div>

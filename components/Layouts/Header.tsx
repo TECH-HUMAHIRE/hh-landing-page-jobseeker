@@ -16,7 +16,16 @@ const Header: React.FC<IHeader> = () => {
   // typeof window !== 'undefined' && localStorage.getItem('token')
   const [haveToken, setHaveToken] = useState<boolean>(false);
   const [isForgot, setForgot] = useState<boolean>(false);
-
+  const scrollToElement = (elementId: string) => {
+    const element = document.getElementById(elementId);
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'nearest',
+      });
+    }
+  };
   const showModalForgotPassword: any = () => {
     router.push('/');
     setForgot(!isForgot);
@@ -45,38 +54,44 @@ const Header: React.FC<IHeader> = () => {
           </Link>
           <ul className="inline-flex flex-row items-center">
             <li className="mr-[34px]">
-              <Link className="text-[16px] font-semibold" href="/">
+              <div
+                className="text-[16px] font-semibold cursor-pointer"
+                onClick={() => scrollToElement('how-it-work')}
+              >
                 How it work
-              </Link>
+              </div>
             </li>
             <li className="mr-[34px]">
-              <Link className="text-[16px] font-semibold" href="/about">
+              <div
+                className="text-[16px] font-semibold cursor-pointer"
+                onClick={() => scrollToElement('testimony')}
+              >
                 Testimony
-              </Link>
+              </div>
             </li>
             <li className="mr-[34px]">
-              <Link
-                className="text-[16px] font-semibold"
-                href="/blog/hello-world"
+              <div
+                className="text-[16px] font-semibold cursor-pointer"
+                onClick={() => scrollToElement('service')}
               >
                 Services
-              </Link>
+              </div>
             </li>
             <li className="mr-[34px]">
-              <Link
-                className="text-[16px] font-semibold"
-                href="/blog/hello-world"
+              <div
+                className="text-[16px] font-semibold cursor-pointer"
+                onClick={() => scrollToElement('FAQ')}
               >
                 FAQ
-              </Link>
+              </div>
             </li>
             <li className="mr-[34px]">
-              <Link
-                className="text-[16px] font-semibold"
-                href="/blog/hello-world"
+              <div
+                className="text-[16px] font-semibold cursor-pointer"
+                onClick={() => scrollToElement('contact-us')}
               >
                 Contact Us
-              </Link>
+              </div>
             </li>
             {haveToken ? (
               <li className="mr-[34px]">

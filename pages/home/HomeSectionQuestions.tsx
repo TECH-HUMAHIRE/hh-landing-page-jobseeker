@@ -4,7 +4,7 @@ import Address from '@public/icons/icon-address.svg';
 import { Textarea, TextInput } from 'flowbite-react';
 export default function HomeSectionQuestions() {
   return (
-    <section className="py-[156px] container bg-white relative">
+    <section id="contact-us" className="py-[156px] container bg-white relative">
       <div className="flex items-center flex-col mb-[20px] relative">
         <h1 className="block text-center font-bold text-[40px] text-black mb-[20px]">
           Still have questions? We’d love to help!
@@ -61,7 +61,8 @@ export default function HomeSectionQuestions() {
                   <Address></Address>
                 </span>
                 <span className="text-[16px] font-normal text-white">
-                  One Pacific Place, Jakarta, ID
+                  C-06-02 Centum @ Oasis Corporate Park, Ara Damansara, 47301
+                  Petaling Jaya, Selangor, Malaysia
                 </span>
               </div>
               <div className="flex flex-row items-center mb-[16px]">
@@ -69,7 +70,7 @@ export default function HomeSectionQuestions() {
                   <Call></Call>
                 </span>
                 <span className="text-[16px] font-normal text-white">
-                  +62 1234 56789
+                  +60 3-7625 8547
                 </span>
               </div>
               <div className="flex flex-row items-center mb-[16px]">
