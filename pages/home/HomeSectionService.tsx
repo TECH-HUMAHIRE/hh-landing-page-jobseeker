@@ -12,7 +12,7 @@ export default function HomeSectionService() {
     setActiveNumber(Number(e.target.value));
   };
   return (
-    <section className="pt-[95px] container relative">
+    <section id="service" className="pt-[95px] container relative">
       <div className="absolute bottom-0 right-0">
         <EllipsisOval></EllipsisOval>
       </div>
